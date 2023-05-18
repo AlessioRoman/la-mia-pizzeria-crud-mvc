@@ -8,12 +8,12 @@
         <h1 class="text-4xl">Ecco il nostro menù!</h1>
     </div>
 
-    <div class="mx-20 flex justify-evenly gap-5 col-12 flex-wrap py-5 mb-10">
+    <div class="flex justify-center gap-5 flex-wrap py-5 mb-10">
         @{
             foreach (PizzaModel pizza in Model)
             {
                 <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow">
-                    <img class="rounded-t-lg" src="@pizza.ImageUrl" alt="" />
+                    <img class="rounded-t-lg" src="@pizza.ImageUrl" style="width: 382px;" alt="" />
                     <div class="p-5">
                         <a href="#">
                             <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">@pizza.Name</h5>
