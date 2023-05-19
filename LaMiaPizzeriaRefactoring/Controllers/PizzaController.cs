@@ -38,5 +38,23 @@ namespace LaMiaPizzeriaRefactoring.Controllers
                 return RedirectToAction("Index");
             }
         }
+
+        public IActionResult Details(int id)
+        {
+            using (PizzaContext db = new())
+            {
+                PizzaModel? pizzaDetails = db.Pizzas.Where(PizzaModel => PizzaModel.Id == id).FirstOrDefault();
+
+                if (pizzaDetails != null)
+                {
+                    return View("Details", pizzaDetails);
+                }
+                else
+                {
+                    return NotFound($"L'articolo con id {id} non è stato trovato!");
+                }
+            }
+
+        }
     }
 }

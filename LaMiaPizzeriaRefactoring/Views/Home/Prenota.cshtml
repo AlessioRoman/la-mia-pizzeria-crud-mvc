@@ -1,0 +1,27 @@
+﻿@{
+    Layout = "_LayoutNoFooter";
+}
+
+@model PrenotazioneModel
+
+<div class="container">
+    <form class="flex flex-col w-50 m-auto" asp-controller="Home" asp-action="Prenota" method="post">
+        @Html.AntiForgeryToken()
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label">Nome</label>
+            <input asp-for="Name" type="text" class="form-control" required>
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="NumberOfPeople" class="form-label">Numero di persone</label>
+            <input asp-for="NumberOfPeople" type="number" class="form-control" required>
+            <span asp-validation-for="NumberOfPeople" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Date" class="form-label">Data</label>
+            <input asp-for="Date" type="datetime-local" class="form-control" required>
+            <span asp-validation-for="Date" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary bg-redText">Salva</button>
+    </form>
+</div>
