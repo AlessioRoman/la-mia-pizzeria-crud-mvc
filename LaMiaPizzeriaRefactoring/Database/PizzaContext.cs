@@ -1,9 +1,11 @@
 ﻿using LaMiaPizzeriaRefactoring.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace LaMiaPizzeriaRefactoring.Database
 {
-    public class PizzaContext : DbContext
+    public class PizzaContext : IdentityDbContext<IdentityUser>
     {
         public DbSet<PizzaModel> Pizzas { get; set; }
         public DbSet<PrenotazioneModel> Prenotazioni { get; set; }
