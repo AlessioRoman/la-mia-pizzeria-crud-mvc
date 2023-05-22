@@ -1,0 +1,46 @@
+﻿@{
+    Layout = "_LayoutNoFooter";
+}
+
+@model List<PizzaModel>
+
+<a href="@Url.Action("Create", "Pizza")" class="mx-12 mb-2 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-redText rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
+    Create
+    <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+</a>
+<table class="table table-striped mx-5">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Immagine</th>
+            <th scope="col">Titolo</th>
+            <th scope="col">Contenuto</th>
+            <th scope="col">Azioni</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (PizzaModel pizza in Model)
+        {
+            <tr>
+                <td>@pizza.Id</td>
+                <td><img class="img-fluid img_square" style="width: 15rem;" src="@pizza.ImageUrl" alt=""></td>
+                <td>@pizza.Name</td>
+                <td>
+                    @pizza.Description
+                </td>
+                <td class="flex gap-2" style="height: 16rem;">
+                    <a href="@Url.Action("Details", "Pizza", new { id = pizza.Id })" style="height: 2.5rem;" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-redText rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
+                        Details
+                    </a>
+                    <a href="@Url.Action("Update", "Pizza", new { id = pizza.Id })" style="height: 2.5rem;" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-redText rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
+                        Update
+                    </a>
+                    <form asp-controller="Pizza" asp-action="Delete" asp-route-id="@pizza.Id" method="post">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" style="height: 2.5rem;" class="btn btn-primary bg-redText">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
