@@ -1,6 +1,7 @@
 ﻿using LaMiaPizzeriaRefactoring.Database;
 using LaMiaPizzeriaRefactoring.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace LaMiaPizzeriaRefactoring.Controllers
 {
@@ -18,7 +19,15 @@ namespace LaMiaPizzeriaRefactoring.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return View();
+            using (PizzaContext db = new())
+            {
+                List<CategoryModel> categories = db.Categories.ToList();
+                PizzaFormModel model = new();
+                model.Pizza = new PizzaModel();
+                model.Categories = categories;
+
+                return View("Create", model);
+            }
         }
 
         [HttpPost]
@@ -43,7 +52,8 @@ namespace LaMiaPizzeriaRefactoring.Controllers
         {
             using (PizzaContext db = new())
             {
-                PizzaModel? pizzaDetails = db.Pizzas.Where(PizzaModel => PizzaModel.Id == id).FirstOrDefault();
+                PizzaModel? pizzaDetails = db.Pizzas.Where(PizzaModel => PizzaModel.Id == id)
+                    .Include(PizzaModel => PizzaModel.Category).FirstOrDefault();
 
                 if (pizzaDetails != null)
                 {
@@ -71,11 +81,16 @@ namespace LaMiaPizzeriaRefactoring.Controllers
         {
             using (PizzaContext db = new())
             {
-                PizzaModel? pizzaDetails = db.Pizzas.Where(PizzaModel => PizzaModel.Id == id).FirstOrDefault();
+                PizzaModel? pizzaToEdit = db.Pizzas.Where(PizzaModel => PizzaModel.Id == id).FirstOrDefault();
 
-                if (pizzaDetails != null)
+                if (pizzaToEdit != null)
                 {
-                    return View("Update", pizzaDetails);
+                    List<CategoryModel> categories = db.Categories.ToList();
+                    PizzaFormModel model = new();
+                    model.Pizza = pizzaToEdit;
+                    model.Categories = categories;
+
+                    return View("Update", model);
                 }
                 else
                 {

@@ -6,6 +6,17 @@
 
 <div class="w-50 m-auto my-8 flex flex-col items-center gap-5">
 	<h1 class="text-4xl text-redText font-bold">@Model.Name</h1>
+	<p>
+		<strong>Categoria:</strong>
+		@if (Model.Category != null)
+		{
+			@Model.Category.Name
+		}
+		else
+		{
+			<span>Nessuna categoria</span>
+		}
+	</p>
 	<img src="@Model.ImageUrl" class="rounded" style="width: 25rem;"/>
 	<p class="text-center text-xl">@Model.Description</p>
 	<h3 class="text-2xl font-bold">@Model.Price &euro;</h3>

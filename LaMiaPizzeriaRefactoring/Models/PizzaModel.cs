@@ -27,6 +27,9 @@ namespace LaMiaPizzeriaRefactoring.Models
         [Range(0, 150, ErrorMessage = "Il prezzo non è valido!")]
         public float Price { get; set; }
 
+        public int? CategoryId { get; set; }
+        public CategoryModel? Category { get; set; }
+
         public PizzaModel()
         {
 
